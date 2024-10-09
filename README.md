@@ -62,6 +62,17 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+
+
+
+```bash
+# 3. Event を 2つ作成する
+curl -X POST -H "Content-Type: application/json" -d '{"name": "test-event-1"}' http://localhost:7071/api/events{"_id":"5f945260a503fa9ceae111ae","name":"test-event-1","__v":0}
+
+```
+
+
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
