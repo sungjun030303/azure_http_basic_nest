@@ -18,6 +18,7 @@ export class EventsController {
   // request　CreateEventDtoを利用
   @Post()
   async create(@Body() request: CreateEventDto): Promise<Event> {
+    console.log('post');
     return this.eventsService.create(request.name)
   }
 
@@ -30,6 +31,7 @@ export class EventsController {
   // GET events へアクセス時に呼び出される関数
   @Get()
   async readAll(): Promise<Event[]> {
+    console.log('get');
     return this.eventsService.readAll()
   }
 
