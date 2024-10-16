@@ -1,5 +1,12 @@
 version: '3.8'
 services:
+  # NestJS アプリケーションの定義を追加
+  app:
+    build: ../.
+    env_file:
+      - ../.env.test
+    links:
+      - mongodb
   mongodb:
     image: arm64v8/mongo:7.0
     ports:

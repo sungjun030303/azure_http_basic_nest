@@ -71,6 +71,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"name": "test-event-1"}' h
 
 ```
 
+```bash
+#docker test
+docker-compose up --abort-on-container-exit
+
+
+```
 
 
 ## Support
