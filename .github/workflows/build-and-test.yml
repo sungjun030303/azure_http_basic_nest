@@ -1,0 +1,35 @@
+# https://github.com/fussy113/nuxt-actions-sample/blob/master/.github/workflows/test-lint.yml
+
+# Pull Request が更新されるたびに走らせる
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '18.15.0' ]
+    steps:
+      # Pull Request 出された branch の最新の commit のソースコードを使用する
+      - name: checkout pushed commit
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      # Node.js のビルドが通るか検証する
+      - name: npm install, build.
+        run: |
+          npm install
+          npm run build --if-present
+      # E2E テストを Docker Compose で実行する
+      - name: run test on docker-compose
+        run: |
+          docker-compose build
+          docker-compose up --abort-on-container-exit
+        working-directory: ./devenv
