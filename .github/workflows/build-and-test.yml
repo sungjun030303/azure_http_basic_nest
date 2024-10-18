@@ -27,6 +27,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: Remove existing containerd
+        run: |
+          sudo apt-get remove -y containerd
+          sudo apt-get autoremove -y
+
       # Docker 및 docker-compose 설치
       - name: Install Docker and Docker-Compose
         run: |
