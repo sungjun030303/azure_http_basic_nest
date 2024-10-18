@@ -8,7 +8,7 @@ services:
     links:
       - mongodb
   mongodb:
-    image: arm64v8/mongo:7.0
+    image: mongo:7.0 #arm64v8/mongo:7.0から変更（AMD,ARM両方倒錯するように）
     ports:
       - "27017:27017"
     environment:
