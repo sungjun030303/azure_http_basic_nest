@@ -6,6 +6,9 @@ on:
     types: [opened, synchronize]
     branches:
       - '*'
+  push:
+    branches:
+      - branches: ['devGithubAction']
 jobs:
   build-and-test:
     name: Build and Test
