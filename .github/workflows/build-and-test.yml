@@ -8,7 +8,7 @@ on:
       - '*'
   push:
     branches:
-      - branches: ['devGithubAction']
+      - devGithubAction # 특정 브랜치에서 Push 이벤트 트리거
 jobs:
   build-and-test:
     name: Build and Test
