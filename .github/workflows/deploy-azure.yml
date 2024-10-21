@@ -16,6 +16,9 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # id-token 권한 부여
+      contents: read   # 리포지토리 콘텐츠 읽기 권한
     steps:
       - name: 'Checkout GitHub Action'
 #        uses: actions/checkout@master
