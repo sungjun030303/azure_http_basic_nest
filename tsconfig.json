@@ -16,6 +16,11 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "allowJs": true  // 추가: JS 파일도 TypeScript로 처리
+  },
+  "include": [
+    "src/**/*.ts",  // 애플리케이션 코드
+    "test/**/*.ts"  // 테스트 관련 코드 (jest-global-teardown.ts 포함)
+  ]
 }

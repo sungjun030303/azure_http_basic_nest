@@ -54,4 +54,12 @@ jobs:
         run: |
           docker-compose build
           docker-compose up --abort-on-container-exit --exit-code-from app
+          docker-compose logs app
+          docker-compose down  # 완료 후 모든 컨테이너를 정리
         working-directory: ./devenv
+#        # Docker Compose로 E2E 테스트 실행
+#      - name: run test on docker-compose
+#        run: |
+#          docker-compose build
+#          docker-compose up --abort-on-container-exit --exit-code-from app
+#        working-directory: ./devenv

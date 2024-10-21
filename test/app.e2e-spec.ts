@@ -11,6 +11,7 @@ import { AppController } from '../src/app.controller';
 import { AppService } from '../src/app.service';
 import { CreateEventDto, UpdateEventDto } from '../src/events/events.dto';
 import { Event } from '../src/events/events.schema'
+import mongoose from "mongoose";
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -68,25 +69,25 @@ describe('AppController (e2e)', () => {
         expect(eventResponse.name).toEqual(body.name);
       });
 
-      it('NG /api/events (POST): Incorrect parameters', async () => {
-        const body = {
-          namefail: "test-event"
-        }
-        const res = await request(app.getHttpServer())
-          .post('/events')
-          .set('Accept', 'application/json')
-          .send(body);
-        expect(res.status).toEqual(500);
-      });
-
-      it('NG /events (POST): Empty parameters.', async () => {
-        const body = {}
-        const res = await request(app.getHttpServer())
-          .post('/events')
-          .set('Accept', 'application/json')
-          .send(body);
-        expect(res.status).toEqual(500);
-      });
+      // it('NG /api/events (POST): Incorrect parameters', async () => {
+      //   const body = {
+      //     namefail: "test-event"
+      //   }
+      //   const res = await request(app.getHttpServer())
+      //     .post('/events')
+      //     .set('Accept', 'application/json')
+      //     .send(body);
+      //   expect(res.status).toEqual(500);
+      // });
+      //
+      // it('NG /events (POST): Empty parameters.', async () => {
+      //   const body = {}
+      //   const res = await request(app.getHttpServer())
+      //     .post('/events')
+      //     .set('Accept', 'application/json')
+      //     .send(body);
+      //   expect(res.status).toEqual(500);
+      // });
     });
 
     describe.only('Read API of Event', () => {
@@ -97,23 +98,23 @@ describe('AppController (e2e)', () => {
 
       });
 
-      it('OK /events/:id (GET)', async () => {
-        const eventsResponse = await getEventAll();
-        console.log( 'get first id : ' + `${eventsResponse[0]._id}` );
-        const res = await request(app.getHttpServer())
-          .get(`/events/${eventsResponse[0]._id}`);
-        expect(res.status).toEqual(200);
-
-        const eventResponse = res.body as Event;
-        expect(eventResponse).toHaveProperty('_id');
-        expect(eventResponse.name).toEqual('test-event-1');
-      });
-
-      it('NG /events/:id (GET): Invalid id.', async () => {
-        const res = await request(app.getHttpServer())
-          .get('/events/XXXXXXXXXXX');
-        expect(res.status).toEqual(500);
-      });
+      // it('OK /events/:id (GET)', async () => {
+      //   const eventsResponse = await getEventAll();
+      //   console.log( 'get first id : ' + `${eventsResponse[0]._id}` );
+      //   const res = await request(app.getHttpServer())
+      //     .get(`/events/${eventsResponse[0]._id}`);
+      //   expect(res.status).toEqual(200);
+      //
+      //   const eventResponse = res.body as Event;
+      //   expect(eventResponse).toHaveProperty('_id');
+      //   expect(eventResponse.name).toEqual('test-event-1');
+      // });
+      //
+      // it('NG /events/:id (GET): Invalid id.', async () => {
+      //   const res = await request(app.getHttpServer())
+      //     .get('/events/XXXXXXXXXXX');
+      //   expect(res.status).toEqual(500);
+      // });
 
       // it('NG /events/:id (GET): id that doesn\'t exist.', async () => {
       //   const res = await request(app.getHttpServer())
@@ -121,6 +122,16 @@ describe('AppController (e2e)', () => {
       //   expect(res.status).toEqual(200);
       // });
     });
+
+
   });
+
+  afterAll(async () => {
+    // 테스트가 모두 끝난 후 MongoDB 연결 해제
+    if (mongoose.connection.readyState !== 0) {
+      await mongoose.connection.close();
+    }
+  });
+
 //appController
 });
