@@ -9,6 +9,9 @@ env:
   AZURE_FUNCTION_APP_NAME: azure-nestjs-sample
   AZURE_FUNCTION_APP_PACKAGE_PATH: '.'
   NODE_VERSION: '18.15.0'
+  AZURE_CLIENT_ID: 'e773dbaf-8fad-4e0e-a09f-0cf6acc650ab'
+  AZURE_TENANT_ID: 'af786cca-2bb4-46f0-bb34-0685f845f7e9'
+  AZURE_SUBSCRIPTION_ID: '3e556a91-b9e7-4c60-bedd-3136b8c07447'
 
 jobs:
   build-and-deploy:
@@ -30,11 +33,20 @@ jobs:
           npm run build --if-present
           popd
 
+      # Azure 로그인 액션 추가
+      - name: 'Azure Login'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ AZURE_CLIENT_ID }}
+          tenant-id: ${{ AZURE_TENANT_ID }}
+          subscription-id: ${{ AZURE_SUBSCRIPTION_ID }}
+
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
+        id: fa
         with:
-          app-name: ${{ env.AZURE_FUNCTION_APP_NAME }}  # Azure Functions 앱 이름
-          package: ${{ env.AZURE_FUNCTION_APP_PACKAGE_PATH }}  # 배포할 코드 패키지 경로
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}  # GitHub Secrets에 저장된 publish-profile
+          app-name: ${{ env.AZURE_FUNCTION_APP_NAME }}
+          package: ${{ env.AZURE_FUNCTION_APP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.AZURE_FUNCTION_APP_PUBLISH_PROFILE }}
           scm-do-build-during-deployment: true
 # For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
