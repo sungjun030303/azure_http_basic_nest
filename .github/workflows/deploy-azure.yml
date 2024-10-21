@@ -1,5 +1,6 @@
 # main ブランチに何らかの commit が追加されたら走らせる
 on:
+  workflow_dispatch:  # 수동 트리거
   push:
     branches:
       - devGithubAction
