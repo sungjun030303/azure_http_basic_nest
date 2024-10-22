@@ -3,7 +3,7 @@ on:
   workflow_dispatch:  # 수동 트리거
   push:
     branches:
-      - devGithubAction
+      - master
 
 env:
   AZURE_FUNCTION_APP_NAME: azure-nestjs-sample
