@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: 'Checkout GitHub Action'
 #        uses: actions/checkout@master
-        uses: actions/checkout@v3  # 최신 버전 v3 사용
+        uses: actions/checkout@v4  # 최신 버전 v3 사용
 
       # If you want to use Azure RBAC instead of Publish Profile, then uncomment the task below
       # - name: 'Login via Azure CLI'
@@ -31,7 +31,7 @@ jobs:
       #     creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }} # set up AZURE_RBAC_CREDENTIALS secrets in your repository
 
       - name: Setup Node ${{ env.NODE_VERSION }} Environment
-        uses: actions/setup-node@3 # 최신 버전 v4 사용
+        uses: actions/setup-node@4 # 최신 버전 v4 사용
         with:
           node-version: ${{ env.NODE_VERSION }}
 
