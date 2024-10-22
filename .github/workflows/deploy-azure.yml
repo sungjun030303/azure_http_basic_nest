@@ -19,16 +19,17 @@ jobs:
     permissions:
       id-token: write  # id-token 권한 부여
       contents: read   # 리포지토리 콘텐츠 읽기 권한
+
     steps:
       - name: 'Checkout GitHub Action'
 #        uses: actions/checkout@master
         uses: actions/checkout@v3      # 최신 버전 v3 사용
 
       # If you want to use Azure RBAC instead of Publish Profile, then uncomment the task below
-      # - name: 'Login via Azure CLI'
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }} # set up AZURE_RBAC_CREDENTIALS secrets in your repository
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }} # set up AZURE_RBAC_CREDENTIALS secrets in your repository
 
       - name: Setup Node ${{ env.NODE_VERSION }} Environment
         uses: actions/setup-node@v3 # 최신 버전 v4 사용
@@ -58,6 +59,6 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTION_APP_NAME }}
           package: ${{ env.AZURE_FUNCTION_APP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+#          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
           # Remove publish-profile to use Azure RBAC
 # For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
