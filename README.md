@@ -81,6 +81,33 @@ docker-compose up --abort-on-container-exit
  
 devTwo
 
+node 18로 변경후. nestjs 를 제인스톨..
+npm install @nestjs/common@^10.0.0 @nestjs/core@^10.0.0 @nestjs/platform-express@^10.0.0 @nestjs/testing@^10.0.0 --save
+
+
+proxies.json 파일 삭제
+npm install @azure/functions@latest --save
+rm -rf nodemodule
+npm install @nestjs/platform-fastify fastify
+
+
+change node version 18
+npm install ok
+
+다시 되돌림...
+npm install @nestjs/common@^10 @nestjs/core@^10 @nestjs/testing@^10.0.0 --save
+
+안됨..
+npm uninstall @nestjs/azure-func-http
+지워 버려!
+
+
+npm install fastify@4 @nestjs/platform-fastify@^10
+npm install @nestjs/cli@^10 @nestjs/schematics@^10
+npm install typescript@latest
+
+
+
 
 ## Support
 
